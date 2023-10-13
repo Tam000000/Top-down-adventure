@@ -8,11 +8,18 @@ public class PlayerController : MonoBehaviour
     public float speed = 0.1f;
     public bool hasKey = false;
     public GameObject key;
+    public static PlayerController instance;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        if(instance != null) //check if instance is in the scene
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
+        GameObject.DontDestroyOnLoad(gameObject);
     }
 
     // Update is called once per frame
@@ -46,7 +53,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Door"))
         {
             Debug.Log("hit");
-            SceneManager.LoadScene("indoor"); //access SceneManager class for LoadScene function
+            SceneManager.LoadScene("Indoor"); //access SceneManager class for LoadScene function
         }
 
         if (collision.gameObject.tag.Equals("Key"))
@@ -55,6 +62,12 @@ public class PlayerController : MonoBehaviour
             key.SetActive(false); //key disappears
             hasKey = true; //player has the key now
 
+        }
+
+        if (collision.gameObject.tag.Equals("Exit"))
+        {
+            Debug.Log("hit");
+            SceneManager.LoadScene("GameScene");
         }
     }
 }
