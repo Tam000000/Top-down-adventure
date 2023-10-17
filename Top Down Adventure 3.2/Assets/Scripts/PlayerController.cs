@@ -53,13 +53,13 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Door"))
         {
             Debug.Log("hit");
-            SceneManager.LoadScene("Indoor"); //access SceneManager class for LoadScene function
+            SceneManager.LoadScene(1); //access SceneManager class for LoadScene function
         }
 
         if (collision.gameObject.tag.Equals("Key"))
         {
             Debug.Log("obtained key");
-            key.SetActive(false); //key disappears
+            //key.SetActive(false); //key disappears
             hasKey = true; //player has the key now
 
         }
@@ -67,7 +67,13 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.tag.Equals("Exit"))
         {
             Debug.Log("hit");
-            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene(0);
+        }
+
+        if (collision.gameObject.tag.Equals("End") && hasKey == true) //needs to satisfy both conditions to enter the end door
+        {
+            Debug.Log("hit");
+            SceneManager.LoadScene(2);
         }
     }
 }
